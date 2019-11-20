@@ -1,21 +1,33 @@
-import {Button} from 'antd';
 import * as React from 'react';
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.scss';
+import Index from "./components/Index/Index";
+import Login from "./components/Login/Login";
+import SignUp from "./components/SignUp/SignUp";
 
 class App extends React.Component {
-    public render() {
+    render() {
         return (
-            <div className="App">
-                <div className="myButtons">
-                    <Button type="primary">Primary</Button>
-                    <Button>Default</Button>
-                    <Button type="dashed">Dashed</Button>
-                    <Button type="danger">Danger</Button>
-                    <Button type="link">Link</Button>
+            <Router>
+                <div>
+                    <Route path="/login" component={Login}/>
+                    <Route path="/signup" component={SignUp}/>
+                    <Route exact={true} path="/" component={Index}/>
                 </div>
-            </div>
-        );
+            </Router>
+        )
     }
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+

@@ -33,6 +33,7 @@ class Login extends React.Component<any, ISignUpState> {
                 password
             });
             console.log("成功");
+            this.props.history.push('/')
         } catch (e) {
             throw new Error(e)
         }

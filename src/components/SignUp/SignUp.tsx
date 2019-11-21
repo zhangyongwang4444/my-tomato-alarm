@@ -21,15 +21,12 @@ class SignUp extends React.Component<any, ISignUpState> {
         }
     }
 
-    onChangeAccount = (e: any) => {
-        this.setState({account: e.target.value})
+    onChange = (key: keyof ISignUpState, value: string) => {
+        const newState = {};
+        newState[key] = value;
+        this.setState(newState)
     };
-    onChangePassword = (e: any) => {
-        this.setState({password: e.target.value})
-    };
-    onChangePasswordConformation = (e: any) => {
-        this.setState({passwordConfirmation: e.target.value})
-    };
+
     submit = async () => {
         const {account, password, passwordConfirmation} = this.state;
         try {
@@ -39,6 +36,7 @@ class SignUp extends React.Component<any, ISignUpState> {
                 password_confirmation: passwordConfirmation
             });
             console.log("成功");
+            this.props.history.push('/')
         } catch (e) {
             throw new Error(e)
         }
@@ -53,17 +51,17 @@ class SignUp extends React.Component<any, ISignUpState> {
                     placeholder="请输入你的用户名"
                     prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>}
                     value={account}
-                    onChange={this.onChangeAccount}
+                    onChange={e => this.onChange('account', e.target.value)}
                 />
                 <Input.Password
                     value={password}
                     placeholder="请输入你的密码"
-                    onChange={this.onChangePassword}
+                    onChange={e => this.onChange('password', e.target.value)}
                 />
                 <Input.Password
                     value={passwordConfirmation}
                     placeholder="请再次输入你的密码"
-                    onChange={this.onChangePasswordConformation}
+                    onChange={e => this.onChange('passwordConfirmation', e.target.value)}
                 />
                 <Button type="primary"
                         className="signUpButton"

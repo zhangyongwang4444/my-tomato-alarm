@@ -5,7 +5,6 @@ const appSecret = "Jq5sRZ5KBubwTBrGwYNhbsHi";
 
 const instance = axios.create({
     baseURL: 'https://gp-server.hunger-valley.com/',
-    timeout: 1000,
     // tslint:disable-next-line:object-literal-sort-keys
     headers: {
         't-app-id': appID,

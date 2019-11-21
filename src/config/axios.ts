@@ -1,7 +1,6 @@
 import axios from 'axios';
-// import {createBrowserHistory} from 'history';
+import history from 'src/config/history';
 
-// const history = createBrowserHistory();
 const appID = "eAQ5N5BM2iodni56TESfj2SW";
 const appSecret = "Jq5sRZ5KBubwTBrGwYNhbsHi";
 
@@ -35,7 +34,7 @@ instance.interceptors.response.use(response => {
 }, error => {
     if (error.response.status === 401) {
         console.log("重定向");
-        window.location.href = '/login'
+        history.push('/login')
     }
     // Any status codes that falls outside the range of 2xx cause this function to trigger
     // Do something with response error

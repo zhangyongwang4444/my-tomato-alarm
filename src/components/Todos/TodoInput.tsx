@@ -5,23 +5,33 @@ interface ITodoInputState {
     description: string
 }
 
-class TodoInput extends React.Component<any, ITodoInputState> {
-    constructor(props: any) {
+interface ITodoInputProps {
+    addTodo: (params: any) => void;
+}
+
+class TodoInput extends React.Component<ITodoInputProps, ITodoInputState> {
+    constructor(props: ITodoInputProps) {
         super(props);
         this.state = {
             description: ''
         }
     }
 
+    addTodo = () => {
+        this.props.addTodo({description: this.state.description})
+    };
     onKeyUp = (e: any) => {
-        if (e.keyCode === 13) {
-            this.props.addTodo({description: this.state.description})
+        if (e.keyCode === 13 && this.state.description !== '') {
+            this.addTodo();
+            this.setState({description: ''})
         }
     };
 
     render() {
         const {description} = this.state;
-        const suffix = description ? <Icon type="enter" style={{color: 'rgba(0,0,0,.45)'}}/> : <span/>;
+        const suffix = description ? <Icon type="enter"
+                                           onClick={this.addTodo}
+                                           style={{color: 'rgba(0,0,0,.45)'}}/> : <span/>;
         return (
             <div className="TodoInput" id="TodoInput">
                 <Input

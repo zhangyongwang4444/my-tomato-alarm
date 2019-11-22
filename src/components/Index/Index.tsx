@@ -1,6 +1,7 @@
 import {Menu, Dropdown, Icon} from "antd";
 import * as React from "react";
 import axios from 'src/config/axios';
+import Todos from 'src/components/Todos/Todos';
 import history from 'src/config/history';
 import './Index.scss';
 
@@ -61,6 +62,9 @@ class Index extends React.Component<IRouter, IIndexState> {
                     {/*<p>欢迎，{this.state.user && this.state.user.account}</p>*/}
                     {/*<Button onClick={this.logout}>注销</Button>*/}
                 </header>
+                <main>
+                    < Todos/>
+                </main>
             </div>
         )
     }

@@ -3,6 +3,9 @@
   align-items: center;
   padding: 8px 0 8px 8px;
   border-bottom: 1px solid #dddddd;
+  &:first-child{
+    border-top: 1px solid #dddddd;
+  }
 
   &:hover {
     background: #f9f9f9;

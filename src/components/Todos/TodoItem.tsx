@@ -1,5 +1,7 @@
 import * as React from 'react';
 import {Checkbox, Icon} from 'antd';
+import classNames from 'classnames'
+import './TodoItem.scss'
 
 interface ITodoItemProps {
     id: number
@@ -42,7 +44,8 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
             <div className="editing">
                 <input type="text" value={this.state.editText}
                        onChange={e => this.setState({editText: e.target.value})}
-                       onKeyUp={this.onKeyUp}/>
+                       onKeyUp={this.onKeyUp}
+                />
                 <div className="iconWrapper">
                     <Icon type="enter"/>
                     <Icon type="delete" theme="filled"
@@ -52,10 +55,15 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
         );
 
         const Text = (
-            <span onDoubleClick={this.toEditing}>{this.props.description}</span>
+            <span className="text" onDoubleClick={this.toEditing}>{this.props.description}</span>
         );
+        const todoItemClass = classNames({
+            TodoItem: true,
+            editing: this.props.editing,
+            completed: this.props.completed
+        });
         return (
-            <div className="TodoItem" id="TodoItem">
+            <div className={todoItemClass} id="TodoItem">
                 <Checkbox checked={this.props.completed}
                           onChange={e => this.update({completed: e.target.checked})}
                 />

@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {connect} from "react-redux";
+import axios from "../../config/axios";
+import {editTodo, updateTodo} from "../../redux/actions";
 import {Checkbox, Icon} from 'antd';
 import classNames from 'classnames'
 import './TodoItem.scss'
@@ -7,9 +10,9 @@ interface ITodoItemProps {
     id: number
     description: string
     completed: boolean
-    update: (id: number, params: any) => any;
     editing: boolean
-    toEditing: (id: number) => void
+    editTodo: (id: number) => any
+    updateTodo: (payload: any) => any;
 }
 
 interface ITodoItemState {
@@ -25,17 +28,22 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
         }
     }
 
-    update = (params: any) => {
-        this.props.update(this.props.id, params)
+    updateTodo = async (params: any) => {
+        try {
+            const response = await axios.put(`todos/${this.props.id}`, params);
+            this.props.updateTodo(response.data.resource);
+        } catch (e) {
+            throw new Error(e)
+        }
     };
 
-    toEditing = () => {
-        this.props.toEditing(this.props.id)
+    editTodo = () => {
+        this.props.editTodo(this.props.id)
     };
 
     onKeyUp = (e: any) => {
         if (e.keyCode === 13 && this.state.editText !== '') {
-            this.update({description: this.state.editText})
+            this.updateTodo({description: this.state.editText})
         }
     };
 
@@ -49,13 +57,13 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
                 <div className="iconWrapper">
                     <Icon type="enter"/>
                     <Icon type="delete" theme="filled"
-                          onClick={e => this.update({deleted: true})}/>
+                          onClick={e => this.updateTodo({deleted: true})}/>
                 </div>
             </div>
         );
 
         const Text = (
-            <span className="text" onDoubleClick={this.toEditing}>{this.props.description}</span>
+            <span className="text" onDoubleClick={this.editTodo}>{this.props.description}</span>
         );
         const todoItemClass = classNames({
             TodoItem: true,
@@ -65,7 +73,7 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
         return (
             <div className={todoItemClass} id="TodoItem">
                 <Checkbox checked={this.props.completed}
-                          onChange={e => this.update({completed: e.target.checked})}
+                          onChange={e => this.updateTodo({completed: e.target.checked})}
                 />
                 {
                     this.props.editing ? Editing : Text
@@ -75,4 +83,17 @@ class TodoItem extends React.Component<ITodoItemProps, ITodoItemState> {
     }
 }
 
-export default TodoItem;
+
+const mapStateToProps = (state: any, ownProps: any) => ({
+    todos: state.todos,
+    ...ownProps
+});
+
+const mapDispatchToProps = {
+    editTodo,
+    updateTodo
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem)
+

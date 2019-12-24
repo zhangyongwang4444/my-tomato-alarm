@@ -2,6 +2,7 @@ import {Menu, Dropdown, Icon} from "antd";
 import * as React from "react";
 import axios from 'src/config/axios';
 import Todos from 'src/components/Todos/Todos';
+import Tomatoes from 'src/components/Tomatoes/Tomatoes'
 import history from 'src/config/history';
 import './Home.scss';
 
@@ -63,6 +64,7 @@ class Home extends React.Component<IRouter, IIndexState> {
                     {/*<Button onClick={this.logout}>注销</Button>*/}
                 </header>
                 <main>
+                    <Tomatoes/>
                     < Todos/>
                 </main>
             </div>

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import {Button, Input, Icon} from "antd";
 import axios from 'src/config/axios';
-import CountDown from "./CountDown";
+// import CountDown from "./CountDown";
+import CountDown from "./CountDownHook";
 
 interface ITomatoActionProps {
     startTomato: () => void;

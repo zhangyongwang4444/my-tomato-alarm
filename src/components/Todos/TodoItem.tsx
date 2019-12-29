@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from "react-redux";
 import axios from "../../config/axios";
-import {editTodo, updateTodo} from "../../redux/actions";
+import {editTodo, updateTodo} from "../../redux/actions/todos";
 import {Checkbox, Icon} from 'antd';
 import classNames from 'classnames'
 import './TodoItem.scss'

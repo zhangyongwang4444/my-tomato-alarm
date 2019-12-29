@@ -19,7 +19,7 @@ interface ITomatoActionState {
 const {confirm} = Modal;
 
 class TomatoAction extends React.Component<ITomatoActionProps, ITomatoActionState> {
-    constructor(props: ITomatoActionProps) {
+    constructor(props: any) {
         super(props)
         this.state = {
             description: ''

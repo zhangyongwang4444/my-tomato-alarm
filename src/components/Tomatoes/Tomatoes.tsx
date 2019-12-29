@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from "../../config/axios";
-import {initTomatoes, addTomato,updateTomato} from "../../redux/actions/tomatoes";
+import {initTomatoes, addTomato, updateTomato} from "../../redux/actions/tomatoes";
 import TomatoAction from "./TomatoAction";
 import {connect} from "react-redux";
 import './Tomatoes.scss'
@@ -9,7 +9,7 @@ interface ITomatoesProps {
     addTomato: (payload: any) => any,
     initTomatoes: (payload: any[]) => any,
     tomatoes: any[],
-    updateTomato:(payload: any) => any
+    updateTomato: (payload: any) => any
 }
 
 class Tomatoes extends React.Component<ITomatoesProps> {
@@ -22,7 +22,7 @@ class Tomatoes extends React.Component<ITomatoesProps> {
     }
 
     get unfinishedTomato() {
-        return this.props.tomatoes.filter(t => !t.description && !t.ended_at)[0]
+        return this.props.tomatoes.filter(t => !t.description && !t.ended_at && !t.aborted)[0]
     }
 
     getTomatoes = async () => {

@@ -49,7 +49,7 @@ class Tomatoes extends React.Component<ITomatoesProps> {
     startTomato = async () => {
         try {
             const response = await axios.post('tomatoes', {duration: 1500000});
-            this.props.addTomato(response.data.resourse);
+            this.props.addTomato(response.data.resource);
         } catch (e) {
             throw new Error(e)
         }

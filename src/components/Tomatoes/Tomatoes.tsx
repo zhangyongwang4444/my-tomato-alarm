@@ -1,12 +1,12 @@
-import * as React from 'react';
-import axios from "../../config/axios";
-import {initTomatoes, addTomato, updateTomato} from "../../redux/actions/tomatoes";
-import TomatoAction from "./TomatoAction";
-import TomatoList from "./TomatoList";
-import {connect} from "react-redux";
-import './Tomatoes.scss'
-import _ from 'lodash'
 import {format, parseISO} from 'date-fns'
+import _ from 'lodash'
+import * as React from 'react';
+import {connect} from "react-redux";
+import axios from "../../config/axios";
+import {addTomato, updateTomato} from "../../redux/actions/tomatoes";
+import TomatoAction from "./TomatoAction";
+import './Tomatoes.scss'
+import TomatoList from "./TomatoList";
 
 interface ITomatoesProps {
     addTomato: (payload: any) => any,
@@ -20,9 +20,6 @@ class Tomatoes extends React.Component<ITomatoesProps> {
         super(props);
     }
 
-    componentDidMount(): void {
-        this.getTomatoes()
-    }
 
     get unfinishedTomato() {
         return this.props.tomatoes.filter(t => !t.description && !t.ended_at && !t.aborted)[0]
@@ -30,20 +27,10 @@ class Tomatoes extends React.Component<ITomatoesProps> {
 
     get finishedTomatoes() {
         const finishedTomatoes = this.props.tomatoes.filter(t => t.description && t.ended_at && !t.aborted)
-        const obj = _.groupBy(finishedTomatoes, (tomato) => {
+        return _.groupBy(finishedTomatoes, (tomato) => {
             return format(parseISO(tomato.started_at), 'yyyy-MM-d')
         })
-        return obj
     }
-
-    getTomatoes = async () => {
-        try {
-            const response = await axios.get('tomatoes')
-            this.props.initTomatoes(response.data.resources)
-        } catch (e) {
-            throw new Error(e)
-        }
-    };
 
 
     startTomato = async () => {
@@ -73,7 +60,6 @@ const mapStateToProps = (state: any, ownProps: any) => ({
 });
 
 const mapDispatchToProps = {
-    initTomatoes,
     addTomato,
     updateTomato
 };
